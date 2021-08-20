@@ -1,8 +1,8 @@
-import React from "react"
-import { useState } from "react"
+import React from 'react'
+import { useState } from 'react'
 
 
-const BlogForm = ({createBlog}) => {
+const BlogForm = ({ createBlog }) => {
 
   const [newBlogTitle, setNewBlogTitle] = useState('')
   const [newBlogAuthor, setNewBlogAuthor] = useState('')
@@ -16,9 +16,9 @@ const BlogForm = ({createBlog}) => {
       url: newBlogUrl,
       likes:0
     })
-    setNewBlogTitle("")
-    setNewBlogUrl("")
-    setNewBlogAuthor("")
+    setNewBlogTitle('')
+    setNewBlogUrl('')
+    setNewBlogAuthor('')
   }
 
   return(
@@ -27,27 +27,27 @@ const BlogForm = ({createBlog}) => {
       <form onSubmit={addBlog}>
         <div>
           title:
-            <input
-              name='title'
-              value={newBlogTitle}
-              onChange={({target}) => setNewBlogTitle(target.value)}
-            />
+          <input
+            name='title'
+            value={newBlogTitle}
+            onChange={({ target }) => setNewBlogTitle(target.value)}
+          />
         </div>
         <div>
           author:
-            <input
-              name='author'
-              value={newBlogAuthor}
-              onChange={({target}) => setNewBlogAuthor(target.value)}
-            />
+          <input
+            name='author'
+            value={newBlogAuthor}
+            onChange={({ target }) => setNewBlogAuthor(target.value)}
+          />
         </div>
         <div>
           url:
-            <input
-              name='url'
-              value={newBlogUrl}
-              onChange={({target}) => setNewBlogUrl(target.value)}
-            />
+          <input
+            name='url'
+            value={newBlogUrl}
+            onChange={({ target }) => setNewBlogUrl(target.value)}
+          />
         </div>
         <button type="submit">create</button>
       </form>

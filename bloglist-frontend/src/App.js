@@ -6,20 +6,18 @@ import Notification  from './components/Notification'
 import BlogForm from './components/BlogForm'
 import Togglable from './components/Toggable'
 
-
 const App = () => {
   const [notificationMessage, setNotificationMessage] = useState(null)
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('') 
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  
   const blogFormRef = useRef()
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs(blogs.sort((a,b) => b.likes - a.likes) )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -37,9 +35,10 @@ const App = () => {
   }
 
   const handleRemove = blogToRemove => {
-    window.confirm("Remove blog?")
-    blogService.remove(blogToRemove.id, user.token)
-    setBlogs(blogs.filter(a => a !== blogToRemove))
+    if (window.confirm('Remove blog?')) {
+      blogService.remove(blogToRemove.id, user.token)
+      setBlogs(blogs.filter(a => a !== blogToRemove))
+    }
   }
 
   const handleLike = (blog, blogLikes) => {
@@ -61,16 +60,16 @@ const App = () => {
       .create(blogObject)
       .then(
         returnedNote => {setBlogs(blogs.concat(returnedNote))
-        setNotificationMessage(`A new blog ${returnedNote.title} by ${returnedNote.author}`)
-        resetNotification()
+          setNotificationMessage(`A new blog ${returnedNote.title} by ${returnedNote.author}`)
+          resetNotification()
         }
       )
   }
 
-  const resetNotification = (message) => {
-      setTimeout(() => {
-        setNotificationMessage(null)
-      }, 5000)
+  const resetNotification = () => {
+    setTimeout(() => {
+      setNotificationMessage(null)
+    }, 5000)
   }
 
   const handleLogin = async (event) => {
@@ -86,7 +85,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setNotificationMessage("Wrong username or password")
+      setNotificationMessage('Wrong username or password')
       resetNotification()
     }
   }
@@ -97,26 +96,26 @@ const App = () => {
         <Notification message={notificationMessage}/>
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
-        <div>
+          <div>
           username
             <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
+              type="text"
+              value={username}
+              name="Username"
+              onChange={({ target }) => setUsername(target.value)}
+            />
+          </div>
+          <div>
           password
             <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit">login</button>
-      </form>
+              type="password"
+              value={password}
+              name="Password"
+              onChange={({ target }) => setPassword(target.value)}
+            />
+          </div>
+          <button type="submit">login</button>
+        </form>
       </div>
     )
   }
@@ -126,7 +125,6 @@ const App = () => {
       <Notification message={notificationMessage}/>
       <h2>Blogs</h2>
       <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
-  
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} user={user} removeBlog={handleRemove} likeBlog={handleLike} />
       )}
