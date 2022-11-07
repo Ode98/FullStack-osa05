@@ -73,7 +73,7 @@ describe('Blog app', function() {
 
       cy.get('.blog').eq(0).should('contain', 'thisistitle3 thisisauthor3')
       cy.get('.blog').eq(1).should('contain', 'thisistitle2 thisisauthor2')
-      // cy.get('.blog').eq(2).should('contain', 'thisistitle1 thisisauthor1')
+      cy.get('.blog').eq(2).should('contain', 'thisistitle1 thisisauthor1')
     })
 
     it('A blog can be removed by user', function() {
