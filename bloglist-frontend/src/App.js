@@ -52,6 +52,9 @@ const App = () => {
         user:user.id
       }
     )
+    blogService.getAll().then(blogs =>
+      setBlogs(blogs.sort((a,b) => b.likes - a.likes) )
+    )
   }
 
   const addBlog = (blogObject) => {
@@ -99,6 +102,7 @@ const App = () => {
           <div>
           username
             <input
+              id="username"
               type="text"
               value={username}
               name="Username"
@@ -108,13 +112,14 @@ const App = () => {
           <div>
           password
             <input
+              id="password"
               type="password"
               value={password}
               name="Password"
               onChange={({ target }) => setPassword(target.value)}
             />
           </div>
-          <button type="submit">login</button>
+          <button id='login-button' type="submit">login</button>
         </form>
       </div>
     )
@@ -126,13 +131,11 @@ const App = () => {
       <h2>Blogs</h2>
       <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} user={user} removeBlog={handleRemove} likeBlog={handleLike} />
+        <Blog className='blog' key={blog.id} blog={blog} user={user} removeBlog={handleRemove} likeBlog={handleLike} />
       )}
-
       <Togglable buttonLabel="Create new blog" ref={blogFormRef}>
         <BlogForm createBlog={addBlog}/>
       </Togglable>
-
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const Blog = ({ blog, user, removeBlog, likeBlog }) => {
+const Blog = ({ blog, removeBlog, likeBlog }) => {
 
   const blogStyle = {
     paddingTop: 10,
@@ -20,7 +20,7 @@ const Blog = ({ blog, user, removeBlog, likeBlog }) => {
 
   if (!visible) {
     return(
-      <div style={blogStyle}>
+      <div className='blog'style={blogStyle}>
         {blog.title} {blog.author} <button onClick={handleClick}>view</button>
       </div>
     )
@@ -30,16 +30,17 @@ const Blog = ({ blog, user, removeBlog, likeBlog }) => {
         <div>
           {blog.title} {blog.author} <button onClick={handleClick}>hide</button>
         </div>
-        {blog.url}
+        <div>
+          {blog.url}
+        </div>
         <div>
           likes: {blogLikes} <button onClick={() => {setBlogLikes(blogLikes + 1); likeBlog(blog, blogLikes)}}>like</button>
         </div>
-        {user.name}
+        {blog.user.name}
         <div>
           <button onClick={() => removeBlog(blog)}>remove</button>
         </div>
       </div>
-
     )
   }
 }
